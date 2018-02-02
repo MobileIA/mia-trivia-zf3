@@ -87,11 +87,6 @@ return array(
                     'delete' => ['allow' => 'admin'],
                 ]
             ],
-            Controller\UserController::class => [
-                'actions' => [
-                    'mobileia' => ['allow' => 'guest'],
-                ]
-            ]
         ],
     ],
     'view_manager' => [

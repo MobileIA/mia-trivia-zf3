@@ -10,7 +10,7 @@ class TriviaController extends \MIABase\Controller\CrudController
 
     protected $template = 'mia-layout-elite';
 
-    protected $route = 'Trivia';
+    protected $route = 'trivia';
 
     public function columns()
     {
