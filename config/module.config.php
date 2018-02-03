@@ -75,6 +75,7 @@ return array(
     'service_manager' => [
         'factories' => [
             Table\TriviaTable::class => \MIABase\Factory\TableFactory::class,
+            Table\OptionTable::class => \MIABase\Factory\TableFactory::class,
         ],
     ],
     'authentication_acl' => [

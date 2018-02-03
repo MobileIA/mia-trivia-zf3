@@ -87,7 +87,7 @@ class Trivia extends \MIABase\Entity\Base implements \Zend\InputFilter\InputFilt
                 ]);
         $inputFilter->add([
                     'name' => 'caption',
-                    'required' => true,
+                    'required' => false,
                     'filters' => [
                         ['name' => \Zend\Filter\StripTags::class],
                         ['name' => \Zend\Filter\StringTrim::class],
@@ -105,7 +105,7 @@ class Trivia extends \MIABase\Entity\Base implements \Zend\InputFilter\InputFilt
                 ]);
         $inputFilter->add([
                     'name' => 'photo',
-                    'required' => true,
+                    'required' => false,
                     'filters' => [
                         ['name' => \Zend\Filter\StripTags::class],
                         ['name' => \Zend\Filter\StringTrim::class],
@@ -128,6 +128,10 @@ class Trivia extends \MIABase\Entity\Base implements \Zend\InputFilter\InputFilt
         $inputFilter->add([
                     'name' => 'end_date',
                     'required' => true
+                ]);
+        $inputFilter->add([
+                    'name' => 'options',
+                    'required' => false
                 ]);
         $this->inputFilter = $inputFilter;
         return $this->inputFilter;

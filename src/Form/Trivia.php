@@ -12,15 +12,15 @@ class Trivia extends \MIABase\Form\Base
                 'name' => 'title',
                 'type' => 'text',
                 'options' => [
-                    'label' => 'Title'
+                    'label' => 'Titulo de la trivia'
                 ],
                 'attributes' => [
-                    'placeholder' => 'Escribe un Title'
+                    'placeholder' => 'Escribe el titulo'
                 ]
             ]);
         $this->add([
                 'name' => 'caption',
-                'type' => 'text',
+                'type' => 'hidden',
                 'options' => [
                     'label' => 'Caption'
                 ],
@@ -30,7 +30,7 @@ class Trivia extends \MIABase\Form\Base
             ]);
         $this->add([
                 'name' => 'photo',
-                'type' => 'text',
+                'type' => 'hidden',
                 'options' => [
                     'label' => 'Photo'
                 ],
@@ -42,21 +42,39 @@ class Trivia extends \MIABase\Form\Base
                 'name' => 'start_date',
                 'type' => 'datetime',
                 'options' => [
-                    'label' => 'Start date',
-                    'format' => 'Y-m-d H:i:s'
+                    'label' => 'Fecha de inicio',
+                    'format' => 'Y-m-d'
                 ]
             ]);
         $this->add([
                 'name' => 'end_date',
                 'type' => 'datetime',
                 'options' => [
-                    'label' => 'End date',
-                    'format' => 'Y-m-d H:i:s'
+                    'label' => 'Fecha de finalización',
+                    'format' => 'Y-m-d'
                 ]
             ]);
         $this->add([
+            'type' => \Zend\Form\Element\Collection::class,
+            'name' => 'options',
+            'options' => [
+                'label' => 'Opciones de la trivia:',
+                //'count' => 1,
+                // Do not allow adding:
+                //'allow_add' => false,
+                //'should_create_template' => false,
+                //'template_placeholder' => '__placeholder__',
+                'target_element' => [
+                    'type' => Element\OptionFieldSet::class,
+                ],
+            ],
+        ]);
+        $this->add([
                     'name' => 'submit',
                     'type' => 'submit',
+            'options' => [
+                'label' => 'Guardar'
+                ],
                     'attributes' => [
                         'value' => 'Enviar',
                         'id'    => 'submitbutton',
