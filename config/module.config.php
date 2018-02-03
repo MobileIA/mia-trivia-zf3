@@ -65,10 +65,21 @@ return array(
                     ],
                 ]
             ],
+            'api-trivia-list' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/trivia/list',
+                    'defaults' => [
+                        'controller' => Controller\ApiController::class,
+                        'action'     => 'list',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
+            Controller\ApiController::class => InvokableFactory::class,
             Controller\TriviaController::class => InvokableFactory::class
         ],
     ],
@@ -88,11 +99,16 @@ return array(
                     'delete' => ['allow' => 'admin'],
                 ]
             ],
+            Controller\ApiController::class => [
+                'actions' => [
+                    'list' => ['allow' => 'guest'],
+                ]
+            ],
         ],
     ],
-    'view_manager' => [
-        'template_map' => [
-            
-        ],
-    ]
+    'view_manager' => array(
+        'strategies' => array(
+            'ViewJsonStrategy',
+        ),
+    ),
 );
