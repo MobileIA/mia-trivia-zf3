@@ -30,12 +30,12 @@ class Trivia extends \MIABase\Form\Base
             ]);
         $this->add([
                 'name' => 'photo',
-                'type' => 'hidden',
+                'type' => \MIAFile\Form\Element\MobileiaPhoto::class,
                 'options' => [
-                    'label' => 'Photo'
+                    'label' => 'Foto'
                 ],
                 'attributes' => [
-                    'placeholder' => 'Escribe un Photo'
+                    'placeholder' => 'Selecciona una foto'
                 ]
             ]);
         $this->add([
