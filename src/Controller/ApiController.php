@@ -20,7 +20,7 @@ class ApiController extends \MIAAuthentication\Controller\AuthCrudController
         // Obtener Id de la trivia
         $triviaId = $this->getParam('trivia_id', 0);
         // Verificar si ya ha votado en la trivia
-        if($this->getVoteTable()->alreadyInTrivia($triviaId)){
+        if($this->getVoteTable()->alreadyInTrivia($this->getUser()->id, $triviaId)){
             return $this->executeError(\MIABase\Controller\Api\Error::REQUIRED_PARAMS);
         }
         // Agregamos voto
@@ -38,7 +38,10 @@ class ApiController extends \MIAAuthentication\Controller\AuthCrudController
         $trivias = $this->getTriviaTable()->fetchAllCurrent($this->getUser()->id);
         // recorremos las trivias
         for($i = 0; $i < count($trivias); $i++){
+            // Buscar opciones
             $trivias[$i]['options'] = $this->getOptionTable()->fetchAllByTrivia($trivias[$i]['id'])->toArray();
+            // Buscar si el usuario ya voto
+            $trivias[$i]['vote'] = $this->getVoteTable()->voteByTrivia($this->getUser()->id, $trivias[$i]['id']);
         }
         
         return $this->executeSuccess($trivias);

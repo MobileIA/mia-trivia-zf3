@@ -22,18 +22,44 @@ class VoteTable extends \MIABase\Table\Base
     }
     /**
      * Devuelve si ya se ha votado en la trivia
+     * @param int $userId
      * @param int $triviaId
      * @return boolean
      */
-    public function alreadyInTrivia($triviaId)
+    public function alreadyInTrivia($userId, $triviaId)
     {
-        $row = $this->tableGateway->select(function (\Zend\Db\Sql\Select $select) use($triviaId) {
-            $select->join('trivia_option', 'trivia_option.id = trivia_vote.option_id', array('trivia_id'));
-            $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('trivia_option.trivia_id = ?', $triviaId));
-        })->current();
+        $row = $this->fetchByTrivia($userId, $triviaId);
         if($row === null){
             return false;
         }
         return true;
+    }
+    /**
+     * Devuelve el ID de la opcion seleccionada por el usuario
+     * @param int $userId
+     * @param int $triviaId
+     * @return int
+     */
+    public function voteByTrivia($userId, $triviaId)
+    {
+        $row = $this->fetchByTrivia($userId, $triviaId);
+        if($row === null){
+            return -1;
+        }
+        return $row->option_id;
+    }
+    /**
+     * Obtiene el registro de la votación del usuario
+     * @param int $userId
+     * @param int $triviaId
+     * @return Vote
+     */
+    public function fetchByTrivia($userId, $triviaId)
+    {
+        return $this->tableGateway->select(function (\Zend\Db\Sql\Select $select) use($userId, $triviaId) {
+            $select->join('trivia_option', 'trivia_option.id = trivia_vote.option_id', array('trivia_id'));
+            $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('trivia_vote.user_id = ?', $userId));
+            $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('trivia_option.trivia_id = ?', $triviaId));
+        })->current();
     }
 }
