@@ -75,6 +75,16 @@ return array(
                     ],
                 ],
             ],
+            'api-trivia-vote' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/trivia/vote',
+                    'defaults' => [
+                        'controller' => Controller\ApiController::class,
+                        'action'     => 'vote',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -87,6 +97,7 @@ return array(
         'factories' => [
             Table\TriviaTable::class => \MIABase\Factory\TableFactory::class,
             Table\OptionTable::class => \MIABase\Factory\TableFactory::class,
+            Table\VoteTable::class => \MIABase\Factory\TableFactory::class,
         ],
     ],
     'authentication_acl' => [
@@ -102,6 +113,7 @@ return array(
             Controller\ApiController::class => [
                 'actions' => [
                     'list' => ['allow' => 'guest'],
+                    'vote' => ['allow' => 'guest'],
                 ]
             ],
         ],
