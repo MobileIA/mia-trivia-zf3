@@ -125,7 +125,7 @@ class TriviaController extends \MIABase\Controller\CrudController
             'main_title' => 'Trivias',
             'main_caption' => 'Administración de las trivias que se mostraran dentro de la aplicación.',
             'title' => 'Listado de trivias',
-            'main_title_add' => 'Nueva Trivia',
+            'main_title_add' => 'Crear nueva Trivia',
             'main_caption_add' => 'Completa los campos requeridos.',
         );
     }
