@@ -39,7 +39,9 @@ class OptionFieldSet extends \Zend\Form\Fieldset
                 'value_options' => array(0 => 'NO', 1 => 'SI'),
             ],
             'attributes' => [
-                'placeholder' => ''
+                'placeholder' => '',
+                'class' => 'select_is_correct',
+                'onchange' => 'return changeIsCorrect(this);'
             ]
         ]);
     }

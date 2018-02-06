@@ -66,6 +66,18 @@ class TriviaController extends \MIABase\Controller\CrudController
             }
         }
     }
+    
+    public function addAction()
+    {
+        $this->addScript();
+        return parent::addAction();
+    }
+    
+    public function editAction()
+    {
+        $this->addScript();
+        return parent::editAction();
+    }
     /**
      * Funcion que se llama despues de editar un registro
      * @param \MIATrivia\Entity\Trivia $old
@@ -144,6 +156,13 @@ class TriviaController extends \MIABase\Controller\CrudController
             'main_title_add' => 'Editar Trivia: ' . $model->title,
             'main_caption_add' => 'Completa o edita los campos de la trivia.',
         );
+    }
+    
+    protected function addScript()
+    {
+        $viewHelper = $this->getServiceManager()->get('ViewHelperManager');
+        $baseHelper = $viewHelper->get('basePath');
+        $viewHelper->get('headScript')->appendFile($baseHelper->__invoke('/mia-trivia-zf3/page.add.js'));
     }
     
     /**

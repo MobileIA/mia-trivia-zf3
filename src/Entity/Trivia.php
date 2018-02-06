@@ -123,11 +123,11 @@ class Trivia extends \MIABase\Entity\Base implements \Zend\InputFilter\InputFilt
                 ]);
         $inputFilter->add([
                     'name' => 'start_date',
-                    'required' => true
+                    'required' => false
                 ]);
         $inputFilter->add([
                     'name' => 'end_date',
-                    'required' => true
+                    'required' => false
                 ]);
         $inputFilter->add([
                     'name' => 'options',
