@@ -12,10 +12,10 @@ class Trivia extends \MIABase\Form\Base
                 'name' => 'title',
                 'type' => 'text',
                 'options' => [
-                    'label' => 'Titulo de la trivia'
+                    'label' => 'Escribe aquí la pregunta'
                 ],
                 'attributes' => [
-                    'placeholder' => 'Escribe el titulo'
+                    'placeholder' => 'La pregunta de la trivia'
                 ]
             ]);
         $this->add([
@@ -32,7 +32,7 @@ class Trivia extends \MIABase\Form\Base
                 'name' => 'photo',
                 'type' => \MIAFile\Form\Element\MobileiaPhoto::class,
                 'options' => [
-                    'label' => 'Foto'
+                    'label' => ' Agregar imagen (opcional)'
                 ],
                 'attributes' => [
                     'placeholder' => 'Selecciona una foto'
@@ -58,7 +58,7 @@ class Trivia extends \MIABase\Form\Base
             'type' => \Zend\Form\Element\Collection::class,
             'name' => 'options',
             'options' => [
-                'label' => 'Opciones de la trivia:',
+                'label' => 'Respuestas:',
                 //'count' => 1,
                 // Do not allow adding:
                 //'allow_add' => false,

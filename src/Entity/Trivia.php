@@ -80,7 +80,7 @@ class Trivia extends \MIABase\Entity\Base implements \Zend\InputFilter\InputFilt
                             'options' => [
                                 'encoding' => 'UTF-8',
                                 'min' => 1,
-                                'max' => 100,
+                                'max' => 1000,
                             ],
                         ],
                     ],
