@@ -19,12 +19,16 @@ class ApiController extends \MIAAuthentication\Controller\AuthCrudController
         $this->checkRequiredParams(array('trivia_id', 'option_id'));
         // Obtener Id de la trivia
         $triviaId = $this->getParam('trivia_id', 0);
+        // Obtener ID de la opcion
+        $optionId = $this->getParam('option_id', 0);
         // Verificar si ya ha votado en la trivia
         if($this->getVoteTable()->alreadyInTrivia($this->getUser()->id, $triviaId)){
             return $this->executeError(\MIABase\Controller\Api\Error::REQUIRED_PARAMS);
         }
         // Agregamos voto
-        $this->getVoteTable()->add($this->getUser()->id, $this->getParam('option_id', 0));
+        $this->getVoteTable()->add($this->getUser()->id, $optionId);
+        // Sumamos al total
+        $this->getOptionTable()->sumVote($optionId);
         // Devolvemos respuesta correcta
         return $this->executeSuccess(true);
     }

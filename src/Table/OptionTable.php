@@ -32,6 +32,15 @@ class OptionTable extends \MIABase\Table\Base
         return $this->save($entity);
     }
     /**
+     * Suma un voto a la opción
+     * @param int $optionId
+     * @return int
+     */
+    public function sumVote($optionId)
+    {
+        return $this->tableGateway->update(array('total' => new \Zend\Db\Sql\Predicate\Expression('total+1')), array('id' => $optionId));
+    }
+    /**
      * Obtiene todos las opciones de la trivia
      * @param int $triviaId
      * @return array
