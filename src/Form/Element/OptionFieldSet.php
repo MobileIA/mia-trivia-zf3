@@ -29,6 +29,7 @@ class OptionFieldSet extends \Zend\Form\Fieldset
             ],
             'attributes' => [
                 //'required' => 'required',
+                'class' => 'input_option_title',
             ],
         ]);
         $this->add([

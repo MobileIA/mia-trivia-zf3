@@ -5,8 +5,19 @@ $(document).ready(function(){
             alert('Debe ingresar la pregunta de la trivia.');
             return false;
         }
+        // Verificar si se cargo una fecha de inicio y fin
+        if($("input[name='start_date']").val() == '' || $("input[name='end_date']").val() == ''){
+            alert('Complete las fechas.');
+            return false;
+        }
         // Verificar si cargo dos respuestas como minimo
-        if($('.element_fielset').length <= 1){
+        var has_options = 0;
+        $('.input_option_title').each(function(index, element){
+            if($(element).val() != ''){
+                has_options++;
+            }
+        });
+        if(has_options <= 1){
             alert('Debe cargar dos respuetas como minimo');
             return false;
         }
