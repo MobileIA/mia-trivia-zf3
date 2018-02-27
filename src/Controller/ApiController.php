@@ -39,7 +39,7 @@ class ApiController extends \MIAAuthentication\Controller\AuthCrudController
     public function listAction()
     {
         // Obtenemos las trivias
-        $trivias = $this->getTriviaTable()->fetchAllCurrent($this->getUser()->id);
+        $trivias = $this->getTriviaTable()->fetchAllCurrent();
         // recorremos las trivias
         for($i = 0; $i < count($trivias); $i++){
             // Buscar opciones

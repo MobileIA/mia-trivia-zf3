@@ -12,12 +12,14 @@ class TriviaTable extends \MIABase\Table\Base
      * @param int $userId
      * @return array
      */
-    public function fetchAllCurrent($userId)
+    public function fetchAllCurrent()
     {
         // Crear Select
         $select = $this->tableGateway->getSql()->select();
         // Buscar las disponibles
         $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('start_date <= NOW() AND end_date >= NOW()'));
+        // Ordenar
+        $select->order('id DESC');
         // Devolver resultado
         return $this->executeQuery($select);
     }
