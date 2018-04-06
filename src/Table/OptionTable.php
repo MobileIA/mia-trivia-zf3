@@ -41,6 +41,15 @@ class OptionTable extends \MIABase\Table\Base
         return $this->tableGateway->update(array('total' => new \Zend\Db\Sql\Predicate\Expression('total+1')), array('id' => $optionId));
     }
     /**
+     * 
+     * @param int $triviaId
+     * @return \MIATrivia\Entity\Option
+     */
+    public function fetchCorrect($triviaId)
+    {
+        return $this->tableGateway->select(array('trivia_id' => $triviaId, 'is_correct' => 1))->current();
+    }
+    /**
      * Obtiene todos las opciones de la trivia
      * @param int $triviaId
      * @return array

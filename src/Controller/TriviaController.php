@@ -12,6 +12,26 @@ class TriviaController extends \MIABase\Controller\CrudController
 
     protected $route = 'trivia';
     
+    public function votesAction()
+    {
+        // Obtnemos ID de la trivia
+        $triviaId = $this->params()->fromRoute('id', 0);
+        // Buscamos la trivia en la DB
+        $trivia = $this->getTable()->fetchById($triviaId);
+        // Verificamos que se haya encontrado la trivia
+        if($trivia === null){
+            return $this->redirect()->toRoute('backend');
+        }
+        // Buscar la opcion correcta
+        $option = $this->getOptionTable()->fetchCorrect($triviaId);
+        // obtener los usuarios que respondieron correctamente
+        $votes = $this->getVoteTable()->fetchAllByTrivia($triviaId, $option->id);
+        // Devolver a la vista
+        return new \Zend\View\Model\ViewModel(array(
+            'votes' => $votes
+        ));
+    }
+    
     /**
      * Funcion que se llama despues de guardar 
      * @param \MIATrivia\Entity\Trivia $trivia
@@ -122,7 +142,9 @@ class TriviaController extends \MIABase\Controller\CrudController
           //array('type' => 'string', 'title' => 'Photo', 'field' => 'photo', 'is_search' => true),
           array('type' => 'datetime', 'title' => 'Fecha de inicio', 'field' => 'start_date', 'is_search' => true),
           array('type' => 'datetime', 'title' => 'Fecha de finalización', 'field' => 'end_date', 'is_search' => true),
-          array('type' => 'actions', 'title' => 'Acciones')
+          array('type' => 'actions', 'title' => 'Acciones', 'more' => array(
+              array('title' => 'Respuestas', 'icon' => 'fa-check-circle', 'route' => 'trivia/votes')
+          ))
         );
     }
 
@@ -172,5 +194,13 @@ class TriviaController extends \MIABase\Controller\CrudController
     protected function getOptionTable()
     {
         return $this->getServiceManager()->get(\MIATrivia\Table\OptionTable::class);
+    }
+    /**
+     * 
+     * @return \MIATrivia\Table\VoteTable
+     */
+    protected function getVoteTable()
+    {
+        return $this->getServiceManager()->get(\MIATrivia\Table\VoteTable::class);
     }
 }

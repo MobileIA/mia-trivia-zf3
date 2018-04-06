@@ -63,6 +63,16 @@ return array(
                             ],
                         ],
                     ],
+                    'votes' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/votes/:id',
+                            'defaults' => [
+                                'controller' => Controller\TriviaController::class,
+                                'action'     => 'votes',
+                            ],
+                        ],
+                    ],
                 ]
             ],
             'api-trivia-list' => [
@@ -108,6 +118,7 @@ return array(
                     'add' => ['allow' => 'admin'],
                     'edit' => ['allow' => 'admin'],
                     'delete' => ['allow' => 'admin'],
+                    'votes' => ['allow' => 'admin'],
                 ]
             ],
             Controller\ApiController::class => [
@@ -119,6 +130,9 @@ return array(
         ],
     ],
     'view_manager' => array(
+        'template_map' => [
+            'mia-trivia/trivia/votes' => __DIR__ . '/../view/trivia/votes.phtml',
+        ],
         'strategies' => array(
             'ViewJsonStrategy',
         ),

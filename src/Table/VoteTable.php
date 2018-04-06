@@ -62,4 +62,24 @@ class VoteTable extends \MIABase\Table\Base
             $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('trivia_option.trivia_id = ?', $triviaId));
         })->current();
     }
+    /**
+     * Obtener las personas que votaron
+     * @param int $triviaId
+     * @param int $optionId
+     * @return array
+     */
+    public function fetchAllByTrivia($triviaId, $optionId = -1)
+    {
+        // Crear Select
+        $select = $this->tableGateway->getSql()->select();
+        $select->join('mia_user', 'mia_user.id = trivia_vote.user_id', array('firstname', 'lastname', 'email'));
+        $select->join('trivia_option', 'trivia_option.id = trivia_vote.option_id', array('trivia_id'));
+        $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('trivia_id = ?', $triviaId));
+        if($optionId > 0){
+            $select->where->addPredicate(new \Zend\Db\Sql\Predicate\Expression('option_id = ?', $optionId));
+        }
+        $select->order('trivia_vote.id ASC');
+        // Devolver resultado
+        return $this->executeQuery($select);
+    }
 }
