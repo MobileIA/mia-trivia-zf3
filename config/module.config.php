@@ -73,6 +73,16 @@ return array(
                             ],
                         ],
                     ],
+                    'export' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/votes/export/:id',
+                            'defaults' => [
+                                'controller' => Controller\TriviaController::class,
+                                'action'     => 'export',
+                            ],
+                        ],
+                    ],
                 ]
             ],
             'api-trivia-list' => [
@@ -119,6 +129,7 @@ return array(
                     'edit' => ['allow' => 'admin'],
                     'delete' => ['allow' => 'admin'],
                     'votes' => ['allow' => 'admin'],
+                    'export' => ['allow' => 'admin'],
                 ]
             ],
             Controller\ApiController::class => [

@@ -12,6 +12,26 @@ class TriviaController extends \MIABase\Controller\CrudController
 
     protected $route = 'trivia';
     
+    public function exportAction()
+    {
+        // Obtnemos ID de la trivia
+        $triviaId = $this->params()->fromRoute('id', 0);
+        // Buscamos la trivia en la DB
+        $trivia = $this->getTable()->fetchById($triviaId);
+        // Verificamos que se haya encontrado la trivia
+        if($trivia === null){
+            return $this->redirect()->toRoute('backend');
+        }
+        // Buscar la opcion correcta
+        $option = $this->getOptionTable()->fetchCorrect($triviaId);
+        // obtener los usuarios que respondieron correctamente
+        $votes = $this->getVoteTable()->fetchAllForExportByTrivia($triviaId, $option->id);
+        // Generar CSV
+        $service = new \MIABase\Helper\CSVHelper($this);
+        $service->render('trivia-' . $triviaId . '.csv', $votes);
+        exit();
+    }
+    
     public function votesAction()
     {
         // Obtnemos ID de la trivia
@@ -28,6 +48,7 @@ class TriviaController extends \MIABase\Controller\CrudController
         $votes = $this->getVoteTable()->fetchAllByTrivia($triviaId, $option->id);
         // Devolver a la vista
         return new \Zend\View\Model\ViewModel(array(
+            'trivia_id' => $triviaId,
             'votes' => $votes
         ));
     }
